@@ -1,72 +1,37 @@
-// CALCULATOR PROGRAM
-
 const display = document.getElementById("display");
 const operators = ['+', '-', '*', '/'];
 
-// 🔧 Cursor always end pe le jaane ke liye
-function moveCursorToEnd(){
-    setTimeout(() => {
-        display.selectionStart = display.selectionEnd = display.value.length;
-    }, 0);
-}
-
-// ➕ ADD VALUE
 function appendToDisplay(input){
-    const lastChar = display.value.slice(-1);
-    const lastNumber = display.value.split(/[+\-*/]/).pop();
+    const lastChar = display.innerText.slice(-1);
+    const lastNumber = display.innerText.split(/[+\-*/]/).pop();
 
-    // prevent double operators
     if (operators.includes(input) && operators.includes(lastChar)) return;
-
-    // prevent multiple decimals
     if (input === '.' && lastNumber.includes('.')) return;
 
-    display.value += input;
+    display.innerText += input;
 
-    moveCursorToEnd(); // 👈 auto move
+    // 👇 THIS WORKS PROPERLY NOW
+    display.scrollLeft = display.scrollWidth;
 }
 
-// 🧹 CLEAR
 function clearDisplay(){
-    display.value = "";
-    moveCursorToEnd();
+    display.innerText = "";
 }
 
-// ⌫ DELETE LAST
 function deleteLast(){
-    display.value = display.value.slice(0, -1);
-    moveCursorToEnd();
+    display.innerText = display.innerText.slice(0, -1);
 }
 
-// 🧮 CALCULATE
 function calculate(){
     try {
-        let result = eval(display.value);
+        let result = eval(display.innerText);
 
         if (!isFinite(result)) {
-            display.value = "Error";
+            display.innerText = "Error";
         } else {
-            display.value = result;
+            display.innerText = result;
         }
     } catch {
-        display.value = "Error";
+        display.innerText = "Error";
     }
-
-    moveCursorToEnd();
 }
-
-// ⌨️ KEYBOARD SUPPORT (pro feature)
-document.addEventListener("keydown", (e) => {
-    if (!isNaN(e.key) || ['+', '-', '*', '/', '.'].includes(e.key)) {
-        appendToDisplay(e.key);
-    }
-    else if (e.key === "Enter") {
-        calculate();
-    }
-    else if (e.key === "Backspace") {
-        deleteLast();
-    }
-    else if (e.key === "Escape") {
-        clearDisplay();
-    }
-});
