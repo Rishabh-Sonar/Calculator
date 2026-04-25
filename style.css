@@ -24,7 +24,7 @@ body{
     border: none;
     background-color: hsl(0, 0%, 20%);
     color: white;
-    overflow: hidden;
+    overflow-x: auto;
 }
 #display::-webkit-scrollbar{
     display: none;
