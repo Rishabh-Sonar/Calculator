@@ -21,7 +21,8 @@ body{
     border: none;
     background-color: hsl(0, 0%, 20%);
     color: white;
-    overflow-x: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 #keys{
     display: grid;
