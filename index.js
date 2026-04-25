@@ -1,10 +1,13 @@
 // CALCULATOR PROGRAM 
+// CALCULATOR PROGRAM
+
 const display = document.getElementById("display");
 const operators = ['+', '-', '*', '/'];
 
-function appendToDisplay(input) {
+// ADD VALUE TO DISPLAY
+function appendToDisplay(input){
     const lastChar = display.value.slice(-1);
-    const lastNumber = display.value.split(/[\+\-\*\/]/).pop();
+    const lastNumber = display.value.split(/[+\-*/]/).pop();
 
     // prevent double operators
     if (operators.includes(input) && operators.includes(lastChar)) {
@@ -17,28 +20,27 @@ function appendToDisplay(input) {
     }
 
     display.value += input;
+
+    // auto scroll to right
+    display.scrollLeft = display.scrollWidth;
 }
 
-function clearDisplay() {
+// CLEAR DISPLAY
+function clearDisplay(){
     display.value = "";
 }
 
-function calculate() {
+// CALCULATE RESULT
+function calculate(){
     try {
         let result = eval(display.value);
 
-        if (result === Infinity) {
+        if (!isFinite(result)) {
             display.value = "Error";
         } else {
             display.value = result;
         }
-
     } catch {
         display.value = "Error";
     }
-}function appendToDisplay(input){
-    display.value += input;
-
-    // 👇 auto scroll to right
-    display.scrollLeft = display.scrollWidth;
 }
