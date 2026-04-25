@@ -36,4 +36,9 @@ function calculate() {
     } catch {
         display.value = "Error";
     }
+}function appendToDisplay(input){
+    display.value += input;
+
+    // 👇 auto scroll to right
+    display.scrollLeft = display.scrollWidth;
 }
