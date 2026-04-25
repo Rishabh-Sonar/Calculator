@@ -1,36 +1,31 @@
-// CALCULATOR PROGRAM 
 // CALCULATOR PROGRAM
 
 const display = document.getElementById("display");
 const operators = ['+', '-', '*', '/'];
 
-// ADD VALUE TO DISPLAY
+// ADD VALUE
 function appendToDisplay(input){
     const lastChar = display.value.slice(-1);
     const lastNumber = display.value.split(/[+\-*/]/).pop();
 
     // prevent double operators
-    if (operators.includes(input) && operators.includes(lastChar)) {
-        return;
-    }
+    if (operators.includes(input) && operators.includes(lastChar)) return;
 
     // prevent multiple decimals
-    if (input === '.' && lastNumber.includes('.')) {
-        return;
-    }
+    if (input === '.' && lastNumber.includes('.')) return;
 
     display.value += input;
 
-    // auto scroll to right
-    display.scrollLeft = display.scrollWidth;
+    // force cursor to end (IMPORTANT for input)
+    display.selectionStart = display.selectionEnd = display.value.length;
 }
 
-// CLEAR DISPLAY
+// CLEAR
 function clearDisplay(){
     display.value = "";
 }
 
-// CALCULATE RESULT
+// CALCULATE
 function calculate(){
     try {
         let result = eval(display.value);
